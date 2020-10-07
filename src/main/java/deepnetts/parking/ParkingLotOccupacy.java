@@ -31,20 +31,13 @@ public class ParkingLotOccupacy {
     public void run() throws DeepNettsException, IOException {
 
         ImageSet imageSet = new ImageSet(imageWidth, imageHeight);
-
         LOG.info("Loading images...");
-
         imageSet.loadLabels(new File(labelsFile));
         imageSet.loadImages(new File(trainingFile));
-        imageSet.shuffle();
-
         ImageSet[] imageSets = imageSet.split(0.60, 0.40);
-
-        LOG.info("Done loading images.");
 
         // create convolutional neural network
         LOG.info("Creating neural network...");
-
         ConvolutionalNetwork legoPeopleNet = ConvolutionalNetwork.builder()
                                             .addInputLayer(imageWidth, imageHeight, 3)
                                             .addConvolutionalLayer(12, 3, 3, ActivationType.TANH)
@@ -55,17 +48,14 @@ public class ParkingLotOccupacy {
                                             .lossFunction(LossType.CROSS_ENTROPY)
                                             .randomSeed(123)
                                             .build();
-
-        LOG.info("Done creating network.");
-        LOG.info("Training neural network...");
-
+        
         // train convolutional network
+        LOG.info("Training neural network...");
         BackpropagationTrainer trainer = legoPeopleNet.getTrainer();
         trainer.setLearningRate(0.01f);
         trainer.setMaxError(0.05f);
         trainer.setMaxEpochs(15);
         trainer.train(imageSets[0]);
-
         LOG.info("Done training neural network.");
 
         ClassifierEvaluator evaluator = new ClassifierEvaluator();
