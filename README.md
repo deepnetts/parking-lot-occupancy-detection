@@ -1,5 +1,5 @@
 # parking-lot-occupancy-detection
-Visual parking lot occupancy detection using deep learning with Deep Netts
+Visual parking lot occupancy detection using deep learning in Deep Netts
 
 Data set: http://cnrpark.it
 
