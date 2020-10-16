@@ -1,7 +1,5 @@
 package deepnetts.parking;
 
-
-
 import deepnetts.core.DeepNetts;
 import deepnetts.data.ImageSet;
 import deepnetts.eval.ClassifierEvaluator;
@@ -40,7 +38,7 @@ public class ParkingLotOccupacy {
         LOG.info("Creating neural network...");
         ConvolutionalNetwork legoPeopleNet = ConvolutionalNetwork.builder()
                                             .addInputLayer(imageWidth, imageHeight, 3)
-                                            .addConvolutionalLayer(12, 3, 3, ActivationType.TANH)
+                                            .addConvolutionalLayer(6, 3, 3, ActivationType.TANH)
                                             .addMaxPoolingLayer(2,2,2)
                                             .addFullyConnectedLayer(30, ActivationType.TANH)
                                             .addFullyConnectedLayer(10, ActivationType.TANH)
